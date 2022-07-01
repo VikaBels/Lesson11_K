@@ -6,6 +6,8 @@
         <entry key="../../../../layout/custom_preview.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="app/src/main/res/layout/activity_work_with_file.xml" value="0.1527777777777778" />
+        <entry key="app/src/main/res/layout/fragment_detail.xml" value="0.17223910840932116" />
+        <entry key="app/src/main/res/layout/fragment_list.xml" value="0.17223910840932116" />
         <entry key="app/src/main/res/layout/list_item.xml" value="0.1296875" />
       </map>
     </option>

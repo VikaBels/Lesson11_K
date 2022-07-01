@@ -16,7 +16,7 @@
         android:theme="@style/Theme.Lesson11_K"
         tools:targetApi="31">
         <activity
-            android:name=".WorkWithFileActivity"
+            android:name=".EditFileActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

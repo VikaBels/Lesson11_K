@@ -4,17 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".WorkWithFileActivity">
+    tools:context=".EditFileActivity">
 
     <EditText
         android:id="@+id/editTextFile"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:singleLine="false"
         android:gravity="left"
-        android:textSize="20sp"
-        android:scrollbars="vertical"
         android:paddingHorizontal="30dp"
-        android:paddingVertical="30dp"/>
+        android:paddingVertical="30dp"
+        android:scrollbars="vertical"
+        android:singleLine="false"
+        android:textSize="20sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

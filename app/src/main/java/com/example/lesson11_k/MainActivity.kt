@@ -8,6 +8,7 @@ import android.widget.AdapterView.OnItemClickListener
 import android.widget.Button
 import android.widget.ListView
 import android.widget.Toast
+import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import java.io.File
@@ -16,23 +17,27 @@ import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
-    private var fileList: ListView? = null
-    private var btnAdd: Button? = null
-
     companion object {
         const val KEY_FILE_NAME = "fileName"
         const val KEY_FILE_DATA = "fileData"
         const val KEY_FOLDER_NAME = "/documents"
-        const val KEY_NUMBER_DOCUMENT = "numberOfEmpty"
         const val txtNULL: String = "NULL"
         const val txtEmpty: String = ""
     }
 
+    private var fileList: ListView? = null
+    private var btnAdd: Button? = null
+
     private var defValueName: String = "NAME"
     private var defValueData: String = "DATA"
 
-    private var states = ArrayList<State>()
-    private lateinit var selectedState: State
+    private var listFiles = ArrayList<CurrentFile>()
+    private lateinit var selectedFile: CurrentFile
+
+    private var editFileActivityResultLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            checkingResultOfCode(result)
+        }
 
 
     private fun findViewById() {
@@ -56,10 +61,9 @@ class MainActivity : AppCompatActivity() {
             } else {
                 for (i in files.indices) {
                     updateDataNameFile(files[i].name, Date(files[i].lastModified()).toString())
-                    states.add(State(getValueName(), getValueData()))
+                    listFiles.add(CurrentFile(getValueName(), getValueData()))
                 }
             }
-
         }
     }
 
@@ -83,38 +87,37 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun workWithAdapter() {
-        val stateAdapter = StateAdapter(this, R.layout.list_item, states)
-        fileList?.adapter = stateAdapter
+        val fileAdapter = FileAdapter(this, R.layout.list_item, listFiles)
+        fileList?.adapter = fileAdapter
 
         val itemListener =
             OnItemClickListener { parent, _, position, _ ->
-                selectedState = parent.getItemAtPosition(position) as State
+                selectedFile = parent.getItemAtPosition(position) as CurrentFile
 
-                openWorkWithFileActivityForResult(selectedState.getName().toString())
+                onClickFileOpenEditFileActivity(selectedFile.getName().toString())
             }
         fileList?.onItemClickListener = itemListener
     }
 
-    private fun openWorkWithFileActivityForResult(txt: String) {
-        val intent = Intent(this, WorkWithFileActivity::class.java)
+    private fun onClickFileOpenEditFileActivity(txt: String) {
+        val intent = Intent(this, EditFileActivity::class.java)
         intent.putExtra(KEY_FILE_NAME, txt)
         setResult(RESULT_OK, intent)
-        workWithFileActivityResultLauncher.launch(intent)
+        editFileActivityResultLauncher.launch(intent)
     }
 
-    private var workWithFileActivityResultLauncher = registerForActivityResult(
-        ActivityResultContracts.StartActivityForResult()
-    ) { result ->
+
+    private fun checkingResultOfCode(result: ActivityResult) {
         if (result.resultCode == RESULT_OK) {
             val data = result.data
             if (data != null) {
-                ///
+               //
             }
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onCreate(savedInstanceFile: Bundle?) {
+        super.onCreate(savedInstanceFile)
         setContentView(R.layout.activity_main)
 
         findViewById()
@@ -130,8 +133,7 @@ class MainActivity : AppCompatActivity() {
             } catch (ex: IOException) {
                 println(ex)
             }
-
-            openWorkWithFileActivityForResult(txtNULL)
+            onClickFileOpenEditFileActivity(txtNULL)
         })
 
     }
@@ -141,7 +143,5 @@ class MainActivity : AppCompatActivity() {
 
         fileList = null
         btnAdd = null
-
     }
-
 }

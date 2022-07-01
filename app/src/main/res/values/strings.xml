@@ -2,4 +2,5 @@
     <string name="app_name">Lesson11_K</string>
     <string name="nameTakenOverwritten">Имя занято, файл перезаписан</string>
     <string name="noFileInFolder">Файлов в папке нет</string>
+    <string name="add">ADD</string>
 </resources>
