@@ -3,7 +3,6 @@ package com.example.lesson11_k
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import android.widget.AdapterView.OnItemClickListener
 import android.widget.Button
 import android.widget.ListView
@@ -116,6 +115,20 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun onClickAddBtn() {
+        btnAdd?.setOnClickListener {
+            val newFile = File("$filesDir$KEY_FOLDER_NAME/$txtNULL")
+            try {
+                newFile.createNewFile()
+            } catch (ex: IOException) {
+                println(ex)
+            }
+            onClickFileOpenEditFileActivity(txtNULL)
+        }
+
+    }
+
+
     override fun onCreate(savedInstanceFile: Bundle?) {
         super.onCreate(savedInstanceFile)
         setContentView(R.layout.activity_main)
@@ -126,16 +139,7 @@ class MainActivity : AppCompatActivity() {
 
         workWithAdapter()
 
-        btnAdd?.setOnClickListener(View.OnClickListener {
-            val newFile = File("$filesDir$KEY_FOLDER_NAME/$txtNULL")
-            try {
-                newFile.createNewFile()
-            } catch (ex: IOException) {
-                println(ex)
-            }
-            onClickFileOpenEditFileActivity(txtNULL)
-        })
-
+        onClickAddBtn()
     }
 
     override fun onDestroy() {

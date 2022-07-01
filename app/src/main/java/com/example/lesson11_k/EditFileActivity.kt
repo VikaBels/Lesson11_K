@@ -143,6 +143,10 @@ class EditFileActivity : AppCompatActivity() {
         }
     }
 
+    private fun getFirstNameFile(){
+        nameFile = intent.getStringExtra(KEY_FILE_NAME).toString()
+    }
+
     override fun onCreate(savedInstanceFile: Bundle?) {
         super.onCreate(savedInstanceFile)
         setContentView(R.layout.activity_edit_file)
@@ -151,7 +155,7 @@ class EditFileActivity : AppCompatActivity() {
 
         changeAppBar()
 
-        nameFile = intent.getStringExtra(KEY_FILE_NAME).toString()
+        getFirstNameFile()
 
         openText()
     }
