@@ -145,7 +145,7 @@ class EditFileActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceFile: Bundle?) {
         super.onCreate(savedInstanceFile)
-        setContentView(R.layout.activity_work_with_file)
+        setContentView(R.layout.activity_edit_file)
 
         findViewById()
 
